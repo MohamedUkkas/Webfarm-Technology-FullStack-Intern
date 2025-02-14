@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth input focus effects */
+input:focus {
+  outline: none;
+  border-color: #4c51bf;
+  box-shadow: 0 0 8px rgba(76, 81, 191, 0.5);
+}
+
+/* Button animations */
+button {
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
