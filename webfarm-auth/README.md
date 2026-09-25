@@ -1,8 +1,32 @@
-# React + Vite
+# Webfarm Authentication Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This directory contains the React/Vite authentication application created during the Webfarm Technology full-stack internship.
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js and npm
+- A Firebase project with the required authentication providers enabled
+
+## Install and run
+
+```bash
+npm install
+npm run dev
+```
+
+## Available scripts
+
+```bash
+npm run dev
+npm run build
+npm run preview
+npm run lint
+```
+
+## Configuration and security
+
+Configure the Firebase client used by the application before testing authentication. Do not commit private service-account credentials, access tokens, or secrets. Firebase authentication configuration does not replace authorization rules for application data.
+
+## Current scope
+
+This is a client-side authentication interface. It does not include a custom backend, application database, automated end-to-end tests, or a production authorization service.
