@@ -1,0 +1,721 @@
+﻿@import "tailwindcss";
+
+@theme {
+  --font-sans: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Manrope', 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+:root {
+  --bg-primary: #fafaf8;
+  --surface: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.84);
+  --foreground: #121a14;
+  --muted: #536257;
+  --primary: #15803d;
+  --primary-hover: #166534;
+  --accent: #d97706;
+  --border: #e4ebe2;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #fafaf8;
+  color: #121a14;
+  overflow-x: hidden;
+}
+
+.theme-toggle {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .55rem .75rem;
+  border: 1px solid #d8e0d9;
+  border-radius: 999px;
+  background: #fff;
+  color: #253329;
+  box-shadow: 0 4px 16px rgba(20, 35, 24, .14);
+  font: 600 .75rem 'DM Sans', system-ui, sans-serif;
+  cursor: pointer;
+}
+
+html[data-theme='dark'] body {
+  background: linear-gradient(135deg, #101814 0%, #17251d 48%, #111923 100%);
+  background-attachment: fixed;
+  color: #e7eee9;
+}
+html[data-theme='dark'] .macos-app {
+  background: linear-gradient(135deg, #101814 0%, #17251d 48%, #111923 100%) !important;
+  color: #e7eee9 !important;
+}
+html[data-theme='dark'] .macos-app :is([class~='bg-white'], [class*='bg-white/'], [class~='bg-stone-50'], [class~='bg-stone-100'], [class~='bg-[#fafaf8]'], [class~='bg-[#f5f5f7]']) { background-color: #1c2620 !important; }
+html[data-theme='dark'] .macos-app :is([class*='text-stone-950'], [class*='text-stone-900'], [class*='text-stone-800'], [class*='text-stone-700'], [class*='text-stone-600'], [class*='text-[#1d1d1f]']) { color: #e3ece6 !important; }
+html[data-theme='dark'] .macos-app :is([class*='border-stone-'], [class*='border-[#']) { border-color: #35443a !important; }
+html[data-theme='dark'] .glass-nav,
+html[data-theme='dark'] .glass-pill,
+html[data-theme='dark'] .glass-drawer { background-color: rgba(28, 38, 32, .94); border-color: #35443a; }
+html[data-theme='dark'] .theme-toggle { background: #26352b; color: #f1f6f2; border-color: #46594a; }
+
+.font-display {
+  font-family: 'Manrope', 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-sans {
+  font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Admin workspace */
+.admin-console {
+  background: #f4f6f5;
+  color: #17221c;
+}
+
+.admin-insight-strip > div { min-width:0; display:flex; align-items:center; gap:.8rem; padding:1rem 1.15rem; border:1px solid #e1e7e3; border-radius:1rem; background:rgba(255,255,255,.86); box-shadow:0 2px 8px rgba(20,35,24,.025); }
+.admin-insight-icon { width:2.25rem; height:2.25rem; flex:0 0 auto; display:grid; place-items:center; border-radius:.75rem; color:#167344; background:#eaf7ef; }
+.admin-insight-amber { color:#a15b0a; background:#fff5df; }
+.admin-insight-blue { color:#365e9b; background:#edf3ff; }
+.admin-insight-copy { min-width:0; display:flex; flex-direction:column; gap:.2rem; }
+.admin-insight-copy small { overflow:hidden; color:#68736c; font-size:.68rem; font-weight:600; text-overflow:ellipsis; white-space:nowrap; }
+.admin-insight-copy strong { color:#202923; font-size:1.15rem; letter-spacing:-.03em; }
+.admin-insight-note { margin-left:auto; color:#89928c; font-size:.65rem; text-align:right; }
+@media (max-width: 640px) {
+  .admin-insight-note { display:none; }
+}
+
+.admin-console-header {
+  background: #173326;
+  border-bottom: 1px solid rgba(255, 255, 255, .1);
+  box-shadow: 0 1px 3px rgba(16, 37, 27, .1);
+}
+
+.admin-console-nav {
+  background: rgba(255, 255, 255, .88);
+  border: 1px solid #e3e8e4;
+  border-radius: 1rem;
+  position: sticky;
+  top: .75rem;
+  z-index: 20;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 24px rgba(23, 43, 32, .06);
+}
+
+.admin-console-nav button { min-height: 2.6rem; }
+.admin-page-intro { padding: .25rem 0 .5rem; }
+.admin-page-intro h2 { letter-spacing: -.035em; }
+.admin-metrics > div {
+  min-height: 8.25rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(20, 35, 24, .035);
+}
+.admin-metric-icon {
+  display: inline-flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: .75rem;
+}
+.admin-panel,
+.admin-quick-actions {
+  box-shadow: 0 2px 8px rgba(20, 35, 24, .035);
+}
+.admin-panel { min-height: 100%; }
+.admin-chart-panel {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 96% 0%, rgba(22, 131, 74, .075), transparent 34%),
+    #fff;
+  box-shadow: 0 2px 8px rgba(20, 35, 24, .035);
+  transition: border-color .24s ease, box-shadow .24s ease, transform .24s ease;
+}
+.admin-chart-panel:hover {
+  border-color: #c9dfd0;
+  box-shadow: 0 16px 36px rgba(20, 65, 39, .09);
+  transform: translateY(-2px);
+}
+.admin-chart-mark {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: .7rem;
+  color: #147a43;
+  background: #eaf7ef;
+}
+.admin-chart-wrap { min-height: 15rem; }
+.admin-revenue-chart { display: block; width: 100%; height: auto; overflow: visible; }
+.admin-chart-gridline { stroke: #edf1ee; stroke-width: 1; stroke-dasharray: 3 6; }
+.admin-chart-area { animation: admin-area-reveal .9s ease-out both; }
+.admin-chart-line {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: admin-line-draw 1.25s cubic-bezier(.2,.7,.25,1) .1s forwards;
+  filter: drop-shadow(0 3px 3px rgba(22, 131, 74, .12));
+}
+.admin-chart-point { opacity: 0; transform-box: fill-box; transform-origin: center; animation: admin-point-arrive .34s cubic-bezier(.2,.8,.2,1) forwards; }
+.admin-chart-point:hover circle:first-child { opacity: .2; }
+.admin-chart-label { fill: #8a938d; font: 500 10px 'DM Sans', system-ui, sans-serif; }
+.admin-chart-empty {
+  min-height: 13.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #dce5de;
+  border-radius: 1rem;
+  background: linear-gradient(145deg, #f8fbf8, #fff);
+}
+@keyframes admin-line-draw { to { stroke-dashoffset: 0; } }
+@keyframes admin-area-reveal { from { opacity: 0; } to { opacity: 1; } }
+@keyframes admin-point-arrive { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: scale(1); } }
+.admin-console input:focus-visible,
+.admin-console select:focus-visible,
+.admin-console textarea:focus-visible { border-color: #23804c; }
+
+.admin-overview {
+  animation: admin-enter .42s cubic-bezier(.2,.7,.25,1) both;
+}
+
+.admin-metrics > div {
+  position: relative;
+  overflow: hidden;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  box-shadow: 0 1px 2px rgba(20, 35, 24, .035);
+}
+
+.admin-metrics > div:hover {
+  transform: translateY(-3px);
+  border-color: #cbd8cc;
+  box-shadow: 0 12px 24px rgba(20, 35, 24, .075);
+}
+
+.admin-metrics > div::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: #2f7650;
+  transform: scaleY(.35);
+  transform-origin: bottom;
+  transition: transform .25s ease;
+}
+
+.admin-metrics > div:hover::before { transform: scaleY(1); }
+
+@keyframes admin-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.admin-console button {
+  transition: background-color .16s ease, color .16s ease, border-color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+
+.admin-console button:focus-visible,
+.admin-console input:focus-visible,
+.admin-console select:focus-visible,
+.admin-console textarea:focus-visible {
+  outline: 3px solid rgba(16, 128, 61, .25);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .admin-console-nav { top: .25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-overview, .admin-console button, .admin-metrics > div, .admin-metrics > div::before,
+  .admin-chart-panel, .admin-chart-panel:hover, .admin-chart-area, .admin-chart-line, .admin-chart-point {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+  .admin-chart-line { stroke-dashoffset: 0; }
+  .admin-chart-point { opacity: 1; }
+}
+
+/* Glassmorphism navigation & panels designed specifically for commercial grocery */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 233, 223, 0.75);
+  box-shadow: 0 10px 35px -8px rgba(18, 44, 24, 0.07), 0 4px 12px -2px rgba(18, 44, 24, 0.04);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.glass-drawer {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(226, 233, 223, 0.8);
+  box-shadow: -12px 0 40px -10px rgba(18, 44, 24, 0.12);
+}
+
+/* Subtle grocery commerce shadow */
+.grocery-card-shadow {
+  box-shadow: 0 3px 12px -2px rgba(22, 44, 28, 0.05), 0 1px 3px rgba(22, 44, 28, 0.03);
+}
+
+.grocery-card-shadow:hover {
+  box-shadow: 0 12px 28px -6px rgba(22, 44, 28, 0.1), 0 4px 10px -2px rgba(22, 44, 28, 0.04);
+}
+
+@keyframes catalog-enter {
+  from { opacity: 0; transform: translateY(14px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes favorite-pop {
+  45% { transform: scale(1.42); }
+  100% { transform: scale(1); }
+}
+
+@keyframes quantity-pop {
+  from { opacity: .45; transform: scale(.72); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.catalog-item { animation: catalog-enter .42s cubic-bezier(.2,.7,.25,1) both; }
+.favorite-pop { animation: favorite-pop .32s ease-out; }
+.quantity-pop { display: inline-block; animation: quantity-pop .18s ease-out; }
+
+.product-photo::after {
+  content: '';
+  position: absolute;
+  inset: 48% 0 0;
+  pointer-events: none;
+  background: linear-gradient(transparent, rgba(18, 44, 24, .10));
+  opacity: .45;
+  transition: opacity .3s ease;
+}
+.catalog-card:hover .product-photo::after { opacity: .9; }
+
+.category-tile { position: relative; overflow: hidden; }
+.category-tile::after {
+  content: '';
+  position: absolute;
+  inset: auto 18% 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: #f5b841;
+  transform: scaleX(0);
+  transition: transform .25s ease;
+}
+.category-tile:hover::after, .category-tile.is-selected::after { transform: scaleX(1); }
+.category-tile .category-image img { transition: transform .55s cubic-bezier(.2,.7,.25,1); }
+.category-tile:hover .category-image img { transform: scale(1.08); }
+.catalog-heading { box-shadow: 0 8px 24px rgba(20, 53, 33, .045); }
+
+/* Shared storefront motion: short, quiet feedback that does not delay actions. */
+.macos-app .catalog-card,
+.macos-app .category-tile,
+.macos-app .catalog-heading,
+.macos-app .empty-catalog-state {
+  transition: transform .24s cubic-bezier(.2,.7,.25,1), box-shadow .24s ease, border-color .2s ease;
+}
+
+.macos-app .catalog-card:hover {
+  box-shadow: 0 18px 40px rgba(31, 35, 41, .11), 0 4px 12px rgba(22, 115, 68, .06);
+}
+
+.macos-app .catalog-card .product-photo img {
+  transition: transform .55s cubic-bezier(.2,.7,.25,1), filter .3s ease;
+}
+
+.macos-app .catalog-card:hover .product-photo img {
+  filter: saturate(1.06);
+}
+
+.macos-app .empty-catalog-state {
+  animation: catalog-enter .32s cubic-bezier(.2,.7,.25,1) both;
+}
+
+.mobile-filter-backdrop {
+  animation: filter-backdrop-in .2s ease both;
+}
+
+.mobile-filter-panel {
+  animation: filter-panel-in .26s cubic-bezier(.2,.75,.25,1) both;
+}
+
+.macos-app .mac-hero {
+  transition: box-shadow .35s ease, border-color .3s ease;
+}
+
+.macos-app .mac-hero:hover {
+  border-color: #d5e3d8;
+  box-shadow: 0 24px 60px rgba(31, 35, 41, .075), 0 3px 10px rgba(31, 35, 41, .035);
+}
+
+.hero-image { isolation: isolate; }
+.hero-float {
+  animation: float-soft 4.8s ease-in-out infinite;
+  transition: box-shadow .2s ease, border-color .2s ease;
+}
+.hero-float-delay { animation-delay: -2.4s; }
+.hero-float:hover { box-shadow: 0 14px 30px rgba(31, 35, 41, .14); border-color: #c9d8ce; }
+
+.deal-card { transition: transform .24s cubic-bezier(.2,.7,.25,1), box-shadow .24s ease, border-color .2s ease; }
+.deal-card img { transition: transform .55s cubic-bezier(.2,.7,.25,1), filter .3s ease; }
+.deal-card:hover img { filter: saturate(1.08); }
+.deals-panel { box-shadow: 0 16px 42px rgba(31, 35, 41, .13); }
+
+.search-suggestions {
+  transform-origin: top center;
+  animation: search-pop-in .16s cubic-bezier(.2,.7,.25,1) both;
+}
+.search-suggestions button:focus-visible { outline: 2px solid rgba(22, 115, 68, .65); outline-offset: -2px; }
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes search-pop-in {
+  from { opacity: 0; transform: translateY(-5px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes filter-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes filter-panel-in {
+  from { opacity: .85; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.macos-app button:focus-visible,
+.macos-app select:focus-visible,
+.macos-app input:focus-visible {
+  outline: 2px solid rgba(22, 115, 68, .65);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .catalog-item, .favorite-pop, .quantity-pop { animation: none !important; }
+  .category-tile, .category-tile::after, .category-tile img { transition: none !important; }
+  .macos-app .catalog-card,
+  .macos-app .category-tile,
+  .macos-app .catalog-heading,
+  .macos-app .empty-catalog-state,
+  .macos-app .catalog-card .product-photo img,
+  .mobile-filter-backdrop,
+  .mobile-filter-panel { animation: none !important; transition: none !important; transform: none !important; }
+  .hero-float { animation: none !important; }
+  .search-suggestions { animation: none !important; }
+  .macos-app .mac-hero:hover, .deal-card:hover { transform: none !important; }
+}
+
+/* Hide scrollbar for smooth category rails */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* macOS-inspired visual system, scoped to the FreshMart app */
+:root {
+  --bg-primary: #f5f5f7;
+  --surface: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.76);
+  --foreground: #1d1d1f;
+  --muted: #6e6e73;
+  --primary: #167344;
+  --primary-hover: #125c37;
+  --border: #e5e5ea;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.macos-app {
+  background: #f5f5f7;
+  color: #1d1d1f;
+  font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.macos-app .font-sans,
+.macos-app .font-display {
+  font-family: 'Manrope', 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.macos-app .font-sans {
+  font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.macos-app .text-stone-950,
+.macos-app .text-stone-900 { color: #1d1d1f; }
+.macos-app .text-stone-800 { color: #3a3a3c; }
+.macos-app .text-stone-700 { color: #48484a; }
+.macos-app .text-stone-600 { color: #6e6e73; }
+.macos-app .text-stone-500 { color: #86868b; }
+.macos-app .border-stone-100 { border-color: #f0f0f2; }
+.macos-app .border-stone-200 { border-color: #e5e5ea; }
+.macos-app .bg-stone-50 { background-color: #f9f9fb; }
+.macos-app .bg-stone-100 { background-color: #f2f2f7; }
+
+.macos-app .glass-nav {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 32px rgba(31, 35, 41, 0.08), 0 1px 2px rgba(31, 35, 41, 0.04);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+}
+
+.macos-app .glass-pill {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  box-shadow: 0 2px 12px rgba(31, 35, 41, 0.08);
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+}
+
+.macos-app .glass-drawer {
+  background: rgba(250, 250, 252, 0.88);
+  border-color: rgba(220, 220, 225, 0.75);
+  box-shadow: -16px 0 48px rgba(31, 35, 41, 0.14);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+}
+
+.macos-app .grocery-card-shadow {
+  box-shadow: 0 1px 2px rgba(31, 35, 41, 0.035), 0 8px 24px rgba(31, 35, 41, 0.045);
+  transition: box-shadow .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.macos-app .grocery-card-shadow:hover {
+  box-shadow: 0 12px 30px rgba(31, 35, 41, 0.09);
+}
+
+.macos-app .mac-hero {
+  min-height: 390px;
+  border-color: rgba(225, 225, 230, 0.9);
+  border-radius: 1.75rem;
+  background: linear-gradient(145deg, #fff 0%, #fbfbfd 68%, #f4f8f5 100%);
+  box-shadow: 0 2px 8px rgba(31, 35, 41, 0.035), 0 18px 48px rgba(31, 35, 41, 0.045);
+}
+
+.macos-app .mac-hero h1 {
+  letter-spacing: -0.055em;
+  line-height: 1.02;
+}
+
+.macos-app .mac-product-card {
+  border-color: #e7e7eb;
+  border-radius: 1.35rem;
+  background: #fff;
+}
+
+.macos-app .mac-product-card:hover {
+  border-color: #c9d8ce;
+  transform: translateY(-3px);
+}
+
+.macos-app .mac-product-card .product-photo {
+  border-radius: 1rem;
+  background: #f2f2f7;
+}
+
+.macos-app .mac-product-card img {
+  transition-duration: .35s;
+}
+.macos-app .mac-product-card:hover img { transform: scale(1.035); }
+
+.macos-app input:not([type='checkbox']):not([type='radio']):not([type='range']),
+.macos-app select,
+.macos-app textarea {
+  border-radius: .8rem;
+  border-color: #dedee3;
+  box-shadow: inset 0 1px 1px rgba(31, 35, 41, 0.025);
+}
+
+.macos-app input:focus,
+.macos-app select:focus,
+.macos-app textarea:focus {
+  border-color: #6b9b7d;
+  box-shadow: 0 0 0 3px rgba(22, 115, 68, 0.12);
+}
+
+.macos-app button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.macos-app .mac-footer {
+  color: #515154;
+  background: #ececf0;
+  border-color: #dedee3;
+}
+
+.macos-app .mac-footer .text-white,
+.macos-app .mac-footer .text-stone-300 { color: #1d1d1f; }
+.macos-app .mac-footer .text-stone-400 { color: #6e6e73; }
+.macos-app .mac-footer .border-stone-800 { border-color: #d9d9de; }
+.macos-app .mac-footer .bg-emerald-800 { background-color: #167344; }
+
+.macos-app .admin-console { background: #f5f5f7; }
+.macos-app .admin-console-header {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: #e5e5ea;
+  box-shadow: 0 4px 18px rgba(31, 35, 41, 0.05);
+  color: #1d1d1f;
+}
+.macos-app .admin-console-header .text-white { color: #1d1d1f; }
+.macos-app .admin-console-nav {
+  border-radius: 1rem;
+  box-shadow: 0 4px 18px rgba(31, 35, 41, 0.05);
+}
+
+@media (max-width: 640px) {
+  .macos-app .mac-hero { min-height: 0; border-radius: 1.35rem; }
+  .macos-app .glass-nav { border-radius: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .macos-app .grocery-card-shadow,
+  .macos-app .grocery-card-shadow:hover { transition: none; transform: none; }
+}
+
+/* Admin workspace visual system */
+.admin-console {
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(222, 240, 228, .5), transparent 30rem),
+    #f4f6f5;
+}
+
+.macos-app .admin-console-header {
+  color: #fff;
+  background: linear-gradient(112deg, #102d20 0%, #184b33 56%, #216442 100%);
+  border-color: rgba(255, 255, 255, .12);
+  box-shadow: 0 12px 30px rgba(16, 45, 32, .15);
+}
+
+.macos-app .admin-console-header .text-white { color: #fff; }
+.macos-app .admin-console-header .text-stone-200 { color: #e5eee8; }
+.macos-app .admin-console-header .text-stone-300 { color: #c8d9ce; }
+.macos-app .admin-console-header .text-stone-400 { color: #a9c0b2; }
+
+.admin-main { position: relative; }
+.admin-console-nav {
+  gap: .35rem;
+  padding: .5rem;
+  scrollbar-width: none;
+}
+.admin-console-nav::-webkit-scrollbar { display: none; }
+.admin-nav-tab { position: relative; }
+.admin-nav-tab:not(.is-active):hover { transform: translateY(-1px); }
+.admin-nav-tab.is-active {
+  background: linear-gradient(135deg, #176b40, #21824f);
+  box-shadow: 0 5px 14px rgba(23, 107, 64, .2), inset 0 1px rgba(255,255,255,.18);
+}
+.admin-nav-tab.is-active::after {
+  content: '';
+  position: absolute;
+  inset: auto 18% -5px;
+  height: 2px;
+  border-radius: 2px;
+  background: #9bd6b0;
+}
+
+.admin-console .grocery-card-shadow,
+.admin-console .admin-panel,
+.admin-console .admin-quick-actions {
+  border-color: #e1e7e3;
+  box-shadow: 0 2px 6px rgba(23, 43, 32, .035), 0 10px 24px rgba(23, 43, 32, .025);
+}
+
+.admin-console table { border-spacing: 0; }
+.admin-console thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f5f7f6;
+  color: #64736a;
+  font-size: 10px;
+  letter-spacing: .08em;
+}
+.admin-console tbody tr { transition: background-color .16s ease; }
+.admin-console tbody tr:hover { background-color: #f2f8f4; }
+.admin-console tbody tr:last-child { border-bottom-color: transparent; }
+.admin-console input:not([type='checkbox']):not([type='radio']):not([type='range']),
+.admin-console select,
+.admin-console textarea {
+  min-height: 2.5rem;
+  transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+.admin-console input:focus,
+.admin-console select:focus,
+.admin-console textarea:focus {
+  background-color: #fff;
+}
+.admin-console .admin-overview > *,
+.admin-console main > [class*='rounded-2xl'] { animation: admin-enter .34s cubic-bezier(.2,.7,.25,1) both; }
+
+@media (max-width: 640px) {
+  .admin-console-header { padding-top: .75rem; padding-bottom: .75rem; }
+  .admin-console-nav { top: .4rem; margin-inline: -.15rem; border-radius: .9rem; }
+  .admin-console-nav button { min-height: 2.55rem; padding-inline: .7rem; }
+  .admin-console .overflow-x-auto { overscroll-behavior-inline: contain; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-nav-tab,
+  .admin-console .grocery-card-shadow,
+  .admin-console tbody tr,
+  .admin-console input,
+  .admin-console select,
+  .admin-console textarea { transition: none !important; }
+  .admin-console .admin-overview > *,
+  .admin-console main > [class*='rounded-2xl'] { animation: none !important; }
+}
+
+/* Complete the optional dark palette across custom FreshMart surfaces. */
+html[data-theme='dark'] .macos-app :is([class*='bg-stone-50'], [class*='bg-stone-100']) { background-color: #1c2620 !important; }
+html[data-theme='dark'] .macos-app :is([class*='bg-stone-200'], [class*='bg-stone-300']) { background-color: #29362e !important; }
+html[data-theme='dark'] .macos-app :is([class*='bg-emerald-50'], [class*='bg-emerald-100'], [class*='bg-emerald-200']) { background-color: #183326 !important; }
+html[data-theme='dark'] .macos-app :is([class*='bg-amber-50'], [class*='bg-amber-100']) { background-color: #382b17 !important; }
+html[data-theme='dark'] .macos-app :is([class*='bg-blue-50'], [class*='bg-blue-100'], [class*='bg-indigo-50'], [class*='bg-indigo-100'], [class*='bg-violet-50']) { background-color: #1d2b3d !important; }
+html[data-theme='dark'] .macos-app :is([class*='bg-red-50'], [class*='bg-red-100'], [class*='bg-rose-50'], [class*='bg-rose-100']) { background-color: #3a2020 !important; }
+html[data-theme='dark'] .macos-app :is([class*='text-stone-950'], [class*='text-stone-900'], [class*='text-[#1d1d1f]']) { color: #edf2ef !important; }
+html[data-theme='dark'] .macos-app [class*='text-stone-800'] { color: #d6dfd9 !important; }
+html[data-theme='dark'] .macos-app [class*='text-stone-700'] { color: #c2cdc5 !important; }
+html[data-theme='dark'] .macos-app [class*='text-stone-600'] { color: #aab7ae !important; }
+html[data-theme='dark'] .macos-app :is([class*='text-stone-500'], [class*='text-stone-400']) { color: #92a097 !important; }
+html[data-theme='dark'] .macos-app :is([class*='text-emerald-950'], [class*='text-emerald-900'], [class*='text-emerald-800'], [class*='text-emerald-700']) { color: #8fdbad !important; }
+html[data-theme='dark'] .macos-app :is([class*='text-amber-950'], [class*='text-amber-900'], [class*='text-amber-800'], [class*='text-amber-700']) { color: #f2c879 !important; }
+html[data-theme='dark'] .macos-app :is([class*='text-blue-950'], [class*='text-blue-900'], [class*='text-blue-800'], [class*='text-indigo-800'], [class*='text-violet-800']) { color: #a9c8f0 !important; }
+html[data-theme='dark'] .macos-app :is([class*='text-red-950'], [class*='text-red-800'], [class*='text-rose-800']) { color: #f0a6a6 !important; }
+html[data-theme='dark'] .macos-app :is(.mac-hero, .mac-product-card) { background: #1c2620 !important; border-color: #35443a !important; }
+html[data-theme='dark'] .macos-app .mac-product-card .product-photo { background: #29362e !important; }
+html[data-theme='dark'] .macos-app .mac-footer { background: #1c2620 !important; color: #c2cdc5 !important; border-color: #35443a !important; }
+html[data-theme='dark'] .macos-app .mac-footer .text-white { color: #edf2ef !important; }
+html[data-theme='dark'] .macos-app .admin-console { background: #111713 !important; }
+html[data-theme='dark'] .macos-app .admin-console-nav { background: rgba(28, 38, 32, .96) !important; border-color: #35443a !important; }
+html[data-theme='dark'] .macos-app :is(input, select, textarea) { color-scheme: dark; background-color: #18211c; color: #edf2ef; border-color: #46594a; }
+html[data-theme='dark'] .macos-app :is(input, textarea)::placeholder { color: #92a097 !important; }

@@ -1,0 +1,6 @@
+{
+  "name": "FreshMart - Modern Supermarket",
+  "description": "Premium digital supermarket platform for fresh groceries, fast delivery, order tracking, and supermarket inventory operations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
